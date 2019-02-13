@@ -15,29 +15,27 @@ d3.csv('Police.csv').then(function(csv_data) {
 
     console.log(tempData);
 
-    d3.select('svg').selectAll('rect') //select rectangles within svg (even if none exist)
-        .data(tempData) //attach data to the rectangles
-        .enter() //find the data elements that are not attached to rectangles
-        .append('rect'); //append rectangles for each data not attached to a rectangle
+    d3.select('svg').selectAll('rect') // Select rectangles within svg.
+        .data(tempData) // Attach data to the rectangles.
+        .enter() // Find the data elements that are not attached to rectangles.
+        .append('rect'); // Append rectangles for each data not attached to a rectangle.
 
     //-----Adjusting the height and the width of the bars.-----//
     
-    // Create a linear scale.
-    var yScale = d3.scaleLinear();
-    // Set its visual range to 600->0.
-    yScale.range([HEIGHT, 0]);
+    var yScale = d3.scaleLinear(); // Create a linear scale.
+    yScale.range([HEIGHT, 0]); // Set its visual range to 600->0.
 
     // Get the minimum y data value by looking at the count property of each datum.
     var yMin = d3.min(tempData, function(datum, index){
         return datum.value;
     })
-    console.log(yMin);
+    // console.log(yMin);
 
     // Get the maximum y data value by looking at the count property of each datum.
     var yMax = d3.max(tempData, function(datum, index){
         return datum.value;
     })
-    console.log(yMax);
+    // console.log(yMax);
 
     // Set the domain of yScale from yMin and yMax.
     yScale.domain([yMin-1451, yMax]);
@@ -51,19 +49,26 @@ d3.csv('Police.csv').then(function(csv_data) {
             return HEIGHT-yScale(datum.value);
         });
 
-    var xScale = d3.scaleLinear(); //create the xScale
-    xScale.range([0, WIDTH]); //set the range to 0->800
-    xScale.domain([0, tempData.length]); //set the domain from 0 to the number of data elements retrieved
-    d3.selectAll('rect') //select all rectangles
-        .attr('x', function(datum, index){ //set the x position of each rectangle...
-            return xScale(index);//by converting the index of the elemnt in the array to a point between 0->800
+    //-----Adjusting the horizontal and the vertical placement of the bars.-----//
+
+    var xScale = d3.scaleLinear(); // Create the xScale.
+    xScale.range([0, WIDTH]); // Set the range to 0->800.
+    xScale.domain([0, tempData.length]); // Set the domain from 0 to the number of data elements retrieved
+    
+    d3.selectAll('rect') // Select all rectangles.
+        .attr('x', function(datum, index){
+            // Set the x position of each rectangle
+            //  by converting the index of the elemnt in the array to a point between 0->800.
+            return xScale(index);
         });
-    d3.selectAll('rect') //select all rectangles
-        .attr('y', function(datum, index){ //set the y position of each rectangle...
-            //by converting the count property of the datum to a visual value
-            //(remember, when using yScale as it is set up, a large data value will give you a small visual value and vice versa)
+
+    d3.selectAll('rect') // Select all rectangles.
+        .attr('y', function(datum, index){
+            // Set the y position of each rectangle
+            //  by converting the count property of the datum to a visual value
             return yScale(datum.value);
         });
+
     d3.selectAll('rect') //select all rectangles
         .attr('width', WIDTH/tempData.length); //set the width of all rectangles to be the width of the SVG divided by the number of data elements
     var yDomain = d3.extent(tempData, function(datum, index){ //set the y domain by getting the min/max with d3.extent
