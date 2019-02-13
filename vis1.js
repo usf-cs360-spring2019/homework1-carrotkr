@@ -1,12 +1,11 @@
 var WIDTH = 800;
 var HEIGHT = 600;
 
-// set width and height of svg
+// Set width and height of svg.
 d3.select('svg')
     .style('width', WIDTH)
     .style('height', HEIGHT);
 
-// d3.json('data.json').then(function(data){
 // Fetch data
 d3.csv('Police.csv').then(function(csv_data) {
     var tempData = d3.nest()
