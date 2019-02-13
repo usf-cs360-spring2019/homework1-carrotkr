@@ -83,7 +83,8 @@ d3.csv('Police.csv').then(function(csv_data) {
     })
     var colorScale = d3.scaleLinear(); // Create a linear scale.
     colorScale.domain(yDomain)
-    colorScale.range(['#00cc00', 'blue']) // The visual range goes from green->blue.
+    colorScale.range(['grey', 'blue'])
+    // colorScale.range(['#00cc00', 'blue']) // The visual range goes from green->blue.
     d3.selectAll('rect')
         .attr('fill', function(datum, index) {
             // Set the fill of each rectangle
