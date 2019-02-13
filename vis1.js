@@ -1,4 +1,4 @@
-var WIDTH = 800;
+var WIDTH = 600;
 var HEIGHT = 600;
 
 // set width and height of svg
