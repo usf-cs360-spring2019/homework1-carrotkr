@@ -1,5 +1,5 @@
 // Width and height.
-var w = 960;
+var w = 800;
 var h = 500;
 
 // Set width and height of svg.
