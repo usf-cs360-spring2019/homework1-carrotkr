@@ -1,114 +1,92 @@
-<!DOCTYPE html>
-<html>
+// Width and height.
+var w = 800;
+var h = 600;
 
-<!-- head -->
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+// Set width and height of svg.
+d3.select('svg')
+  .style('width', w)
+  .style('height', h);
 
-  <title>CS 360/560 Spring 2019</title>
+d3.csv('Police.csv').then(function(csv_data) {
+  var tempData = d3.nest()
+    .key(function(d) { return d.IncidentDayOfWeek; })
+    .rollup(function(v) { return v.length; })
+    .entries(csv_data);
 
-  <!-- bulma 0.7.2 and font awesome v5.7.1 -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" integrity="sha256-2pUeJf+y0ltRPSbKOeJh09ipQFYxUdct5nTY6GAXswA=" crossorigin="anonymous" />
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-  <link rel="stylesheet" href="app.css">
-</head>
+  console.log(tempData);
+  console.log(tempData[1].value);
+    
+  var dataset =[]
+  console.log(tempData.length);
 
-<!-- body -->
-<body>
-  <script src="https://d3js.org/d3.v5.min.js"></script>
-  <!-- header -->
-  <section class="hero is-primary is-bold">
-    <!-- todo: change assignment and name -->
-    <div class="hero-body">
-      <div class="container">
-        <h1 class="title">
-          Homework 1
-        </h1>
-        <h2 class="subtitle">
-          Kibeom Kim
-        </h2>
-      </div>
-    </div>
+  var i;
+  for (i = 0; i < tempData.length; i++) {
+        dataset.push(tempData[i].value)
+  }
+  console.log(dataset);
+  
+  var day = []
+  for (i = 0; i < tempData.length; i++) {
+        day.push(tempData[i].key)
+  }
 
-    <!-- todo: change navigation as needed -->
-    <div class="hero-foot">
-      <div class="container">
-        <nav class="navbar" role="navigation" aria-label="main navigation">
+  var outerRadius = w / 3;
+  // var innerRadius = w / 4;
+  var arc = d3.arc()
+    // .innerRadius(innerRadius)
+    .outerRadius(outerRadius);
+            
+  var pie = d3.pie();
+            
+  // Colors accessible via a 10-step ordinal scale.
+  var color = d3.scaleOrdinal(d3.schemeCategory10);
 
-          <div class="navbar-brand">
-            <a class="navbar-item" href="index.html">
-              <span class="icon">
-                <i class="fas fa-home"></i>
-              </span>
-              <span>Home</span>
-            </a>
-          </div>
+  // Create SVG element.
+  var svg = d3.select("body")
+    .append("svg")
+    .attr("width", w)
+    .attr("height", h);
+            
+  // Set up groups.
+  var arcs = svg.selectAll("g.arc")
+    .data(pie(dataset))
+    .enter()
+    .append("g")
+    .attr("class", "arc")
+    .attr("transform", "translate(" + outerRadius + "," + outerRadius + ")");
+            
+  // Draw arc paths.
+  arcs.append("path")
+    .attr("fill", function(d, i) {
+      return color(i);
+    })
+    .attr("d", arc);
+            
+  // Labels.
+  arcs.append("text")
+    .attr("transform", function(d) {
+      return "translate(" + arc.centroid(d) + ")";
+    })
+    .attr("text-anchor", "middle")
+    .attr('dy', '-20')
+    .style("font", "bold 14px Arial")
+    .text(function(d, i) {
+        //   return d.value + " incidents\
+        // (" + tempData[i].key + ")";
+      return d.value;
+    });
 
-          <div class="navbar-menu">
-            <a class="navbar-item" href="vis1.html">
-              <span class="icon">
-                <i class="fas fa-chart-area"></i>
-              </span>
-              <span>Visualization 1</span>
-            </a>
+  // Add a legendLabel to each arc slice.
+  arcs.append("text")
+    .attr("transform", function(d) { // Set the label's origin to the center of the arc.
+        // Set these before calling arc.centroid.
+        d.outerRadius = outerRadius + 50; // Set Outer Coordinate.
+        // d.innerRadius = outerRadius + 45; // Set Inner Coordinate.
+        return "translate(" + arc.centroid(d) + ")";
+      })
 
-            <a class="navbar-item" href="vis2.html">
-              <span class="icon">
-                <i class="fas fa-chart-area"></i>
-              </span>
-              <span>Visualization 2</span>
-            </a>
-
-            <a class="navbar-item" href="vis3.html">
-              <span class="icon">
-                <i class="fas fa-chart-area"></i>
-              </span>
-              <span>Visualization 3</span>
-            </a>
-          </div>
-
-          <div class="navbar-end">
-            <a class="navbar-item" href="index.html">
-              <span class="icon">
-                <i class="fas fa-tasks"></i>
-              </span>
-              <span>Grade</span>
-            </a>
-
-            <a class="navbar-item" href="index.html">
-              <span class="icon">
-                <i class="fas fa-info-circle"></i>
-              </span>
-              <span>About</span>
-            </a>
-          </div>
-
-        </nav>
-      </div>
-    </div>
-  </section>
-
-  <!-- todo: add sections as necessary -->
-  <section class="section">
-    <div class="container content">
-      <!-- todo: modify as necessary (or move visualizations to separate pages) -->
-        <h2> Incident Day of Week </h2>
-
-        <script src="vis3.js"> </script>
-
-        <!-- <svg width="960" height="500" style="background-color: whitesmoke; border: 1px solid black;">
-        </svg> -->
-
-        <h3>Interpretation</h3>
-
-        <p>
-          If appropriate, provide a brief discussion of how to interpret this visualization (e.g. how the data is encoded) and how to interact with this visualization. Some of this discussion may not be necessary depending on the legends provided with the visualization.
-        </p>
-
-    </div>
-  </section>
-
-<!-- end body and html -->
-</body>
-</html>
+    // .attr("text-anchor", "right") // Center the text on it's origin.
+      .style("fill", "Purple")
+      .style("font", "bold 12px Arial")
+      .text(function(d, i) { return tempData[i].key; }); // Get the label from original data array.
+}); 
