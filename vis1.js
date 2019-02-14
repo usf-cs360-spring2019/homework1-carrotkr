@@ -9,7 +9,7 @@ d3.select('svg')
 // Fetch data.
 d3.csv('Police.csv').then(function(csv_data) {
     var tempData = d3.nest()
-      .key(function(d) { return d.IncidentDayOfWeek; })
+      .key(function(d) { return d.SupervisorDistrict; })
       .rollup(function(v) { return v.length; })
       .entries(csv_data);
 
