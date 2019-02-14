@@ -86,7 +86,7 @@ d3.csv('Police.csv').then(function(csv_data) {
       })
 
     // .attr("text-anchor", "right") // Center the text on it's origin.
-      .style("fill", "Purple")
-      .style("font", "12px Arial")
+      .style("fill", "Black")
+      .style("font", "14px Arial")
       .text(function(d, i) { return tempData[i].key; }); // Get the label from original data array.
 }); 
