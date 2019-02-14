@@ -44,21 +44,21 @@ d3.csv('Police.csv').then(function(csv_data) {
     // .attr('transform', 'translate(' + (w / 3) + ',' + (h / 3) + ')');
             
     // Set up groups.
-            var arcs = svg.selectAll("g.arc")
-                          .data(pie(dataset))
-                          .enter()
-                          .append("g")
-                          .attr("class", "arc")
-                          .attr("transform", "translate(" + outerRadius + "," + outerRadius + ")");
+    var arcs = svg.selectAll("g.arc")
+      .data(pie(dataset))
+      .enter()
+      .append("g")
+      .attr("class", "arc")
+      .attr("transform", "translate(" + outerRadius + "," + outerRadius + ")");
             
-            //Draw arc paths
-            arcs.append("path")
-                .attr("fill", function(d, i) {
-                    return color(i);
-                })
-                .attr("d", arc);
+    // Draw arc paths.
+    arcs.append("path")
+        .attr("fill", function(d, i) {
+          return color(i);
+        })
+        .attr("d", arc);
             
-            //Labels
+    //Labels
             arcs.append("text")
                 .attr("transform", function(d) {
                     return "translate(" + arc.centroid(d) + ")";
@@ -71,7 +71,7 @@ d3.csv('Police.csv').then(function(csv_data) {
                      (" + tempData[i].key + ")";
                 });
 
-            // Add a legendLabel to each arc slice...
+    // Add a legendLabel to each arc slice.
     arcs.append("text")
       .attr("transform", function(d) { //set the label's origin to the center of the arc
         //we have to make sure to set these before calling arc.centroid
