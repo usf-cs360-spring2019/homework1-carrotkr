@@ -38,7 +38,7 @@ d3.csv('Police.csv').then(function(csv_data) {
     // console.log(yMax);
 
     // Set the domain of yScale from yMin and yMax.
-    yScale.domain([yMin-1451, yMax]);
+    yScale.domain([yMin-328, yMax]);
 
     d3.selectAll('rect')
         .attr('height', function(datum, index){
@@ -83,8 +83,9 @@ d3.csv('Police.csv').then(function(csv_data) {
     })
     var colorScale = d3.scaleLinear(); // Create a linear scale.
     colorScale.domain(yDomain)
-    colorScale.range(['#bbbbbb', '#595959'])
     // colorScale.range(['#00cc00', 'blue']) // The visual range goes from green->blue.
+    colorScale.range(['#bbbbbb', '#595959'])
+    
     d3.selectAll('rect')
         .attr('fill', function(datum, index) {
             // Set the fill of each rectangle
