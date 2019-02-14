@@ -69,7 +69,7 @@ d3.csv('Police.csv').then(function(csv_data) {
     })
     .attr("text-anchor", "middle")
     .attr('dy', '-20')
-    .style("font", "bold 18px Arial")
+    .style("font", "bold 16px Arial")
     .text(function(d, i) {
         //   return d.value + " incidents\
         // (" + tempData[i].key + ")";
