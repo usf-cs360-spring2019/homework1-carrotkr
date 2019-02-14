@@ -2,7 +2,7 @@ var WIDTH = 960;
 var HEIGHT = 500;
 
 // Set width and height of svg.
-d3.select('vis2')
+d3.select('svg')
     .style('width', WIDTH)
     .style('height', HEIGHT);
 
@@ -22,7 +22,7 @@ d3.csv('Police.csv').then(function(csv_data) {
 
     console.log(tempData);
 
-    d3.select('vis2').selectAll('rect') // Select rectangles within svg.
+    d3.select('svg').selectAll('rect') // Select rectangles within svg.
         .data(tempData) // Attach data to the rectangles.
         .enter() // Find the data elements that are not attached to rectangles.
         .append('rect'); // Append rectangles for each data not attached to a rectangle.
@@ -45,7 +45,7 @@ d3.csv('Police.csv').then(function(csv_data) {
     // console.log(yMax);
 
     // Set the domain of yScale from yMin and yMax.
-    yScale.domain([yMin-328, yMax]);
+    yScale.domain([yMin, yMax]);
 
     d3.selectAll('rect')
         .attr('height', function(datum, index){
