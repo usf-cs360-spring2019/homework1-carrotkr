@@ -103,7 +103,7 @@ d3.csv('Police.csv').then(function(csv_data) {
     //-----Adding axes.-----//
 
     var leftAxis = d3.axisLeft(yScale); // Create a left axis generator using the yScale.
-    d3.select('vis2')
+    d3.select('svg')
         .append('g').attr('id', 'left-axis')
         .call(leftAxis);
     
@@ -115,7 +115,7 @@ d3.csv('Police.csv').then(function(csv_data) {
     skillScale.domain(skillDomain); // Set the domain to be the array of skill strings.
     
     var bottomAxis = d3.axisBottom(skillScale); // Create a bottom axis generator that uses the skillScale.
-    d3.select('vis2')
+    d3.select('svg')
         .append('g').attr('id', 'bottom-axis')
         .call(bottomAxis)
         .attr('transform', 'translate(0,'+HEIGHT+')'); // Move it to the bottom of the svg.
