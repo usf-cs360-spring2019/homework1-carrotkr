@@ -31,9 +31,9 @@ d3.csv('Police.csv').then(function(csv_data) {
   }
 
   var outerRadius = w / 3;
-  // var innerRadius = w / 4;
+  var innerRadius = 0;
   var arc = d3.arc()
-    // .innerRadius(innerRadius)
+    .innerRadius(innerRadius)
     .outerRadius(outerRadius);
             
   var pie = d3.pie();
@@ -81,7 +81,7 @@ d3.csv('Police.csv').then(function(csv_data) {
     .attr("transform", function(d) { // Set the label's origin to the center of the arc.
         // Set these before calling arc.centroid.
         d.outerRadius = outerRadius + 50; // Set Outer Coordinate.
-        // d.innerRadius = outerRadius + 45; // Set Inner Coordinate.
+        d.innerRadius = outerRadius + 45; // Set Inner Coordinate.
         return "translate(" + arc.centroid(d) + ")";
       })
 
