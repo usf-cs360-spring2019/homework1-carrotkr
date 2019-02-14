@@ -2,7 +2,7 @@ var WIDTH = 960;
 var HEIGHT = 500;
 
 // Set width and height of svg.
-d3.select('svg')
+d3.select('vis1')
     .style('width', WIDTH)
     .style('height', HEIGHT);
 
@@ -15,7 +15,7 @@ d3.csv('Police.csv').then(function(csv_data) {
 
     console.log(tempData);
 
-    d3.select('svg').selectAll('rect') // Select rectangles within svg.
+    d3.select('vis1').selectAll('rect') // Select rectangles within svg.
         .data(tempData) // Attach data to the rectangles.
         .enter() // Find the data elements that are not attached to rectangles.
         .append('rect'); // Append rectangles for each data not attached to a rectangle.
@@ -96,7 +96,7 @@ d3.csv('Police.csv').then(function(csv_data) {
     //-----Adding axes.-----//
 
     var leftAxis = d3.axisLeft(yScale); // Create a left axis generator using the yScale.
-    d3.select('svg')
+    d3.select('vis1')
         .append('g').attr('id', 'left-axis')
         .call(leftAxis);
     
@@ -108,7 +108,7 @@ d3.csv('Police.csv').then(function(csv_data) {
     skillScale.domain(skillDomain); // Set the domain to be the array of skill strings.
     
     var bottomAxis = d3.axisBottom(skillScale); // Create a bottom axis generator that uses the skillScale.
-    d3.select('svg')
+    d3.select('vis1')
         .append('g').attr('id', 'bottom-axis')
         .call(bottomAxis)
         .attr('transform', 'translate(0,'+HEIGHT+')'); // Move it to the bottom of the svg.
