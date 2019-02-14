@@ -69,7 +69,7 @@ d3.csv('Police.csv').then(function(csv_data) {
     })
     .attr("text-anchor", "middle")
     .attr('dy', '-20')
-    .style("font", "bold 36px Arial")
+    .style("font", "bold 18px Arial")
     .text(function(d, i) {
         //   return d.value + " incidents\
         // (" + tempData[i].key + ")";
@@ -86,7 +86,7 @@ d3.csv('Police.csv').then(function(csv_data) {
       })
 
     // .attr("text-anchor", "right") // Center the text on it's origin.
-      .style("fill", "Black")
-      .style("font", "bold 30px Arial")
+      .style("fill", "Purple")
+      .style("font", "bold 14px Arial")
       .text(function(d, i) { return tempData[i].key; }); // Get the label from original data array.
 }); 
