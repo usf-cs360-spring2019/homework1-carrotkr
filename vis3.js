@@ -2,6 +2,11 @@
 var w = 800;
 var h = 600;
 
+// Set width and height of svg.
+d3.select('svg')
+    .style('width', w)
+    .style('height', h);
+
 d3.csv('Police.csv').then(function(csv_data) {
   var tempData = d3.nest()
     .key(function(d) { return d.IncidentDayOfWeek; })
@@ -9,19 +14,22 @@ d3.csv('Police.csv').then(function(csv_data) {
     .entries(csv_data);
 
   console.log(tempData);
-
   console.log(tempData[1].value);
-    var dataset =[]
-    console.log(tempData.length);
-    var i;
-    for (i = 0; i < tempData.length; i++) {
+    
+  var dataset =[]
+  console.log(tempData.length);
+
+  var i;
+  
+  for (i = 0; i < tempData.length; i++) {
         dataset.push(tempData[i].value)
-    }
-    console.log(dataset);
-    var day = []
-    for (i = 0; i < tempData.length; i++) {
+  }
+  console.log(dataset);
+  
+  var day = []
+  for (i = 0; i < tempData.length; i++) {
         day.push(tempData[i].key)
-    }
+  }
 
     var outerRadius = w / 3;
     var innerRadius = w / 4;
@@ -59,27 +67,28 @@ d3.csv('Police.csv').then(function(csv_data) {
         .attr("d", arc);
             
     //Labels
-            arcs.append("text")
-                .attr("transform", function(d) {
-                    return "translate(" + arc.centroid(d) + ")";
-                })
-                .attr("text-anchor", "middle")
-                .attr('dy', '-20')
-                .style("font", "bold 12px Arial")
-                .text(function(d, i) {
-                    return d.value + " incidents\
-                     (" + tempData[i].key + ")";
-                });
-
-    // Add a legendLabel to each arc slice.
     arcs.append("text")
-      .attr("transform", function(d) { //set the label's origin to the center of the arc
+        .attr("transform", function(d) {
+          return "translate(" + arc.centroid(d) + ")";
+        })
+        .attr("text-anchor", "middle")
+        .attr('dy', '-20')
+        .style("font", "bold 12px Arial")
+        .text(function(d, i) {
+          return d.value + " incidents\
+        (" + tempData[i].key + ")";
+        });
+
+  // Add a legendLabel to each arc slice.
+  arcs.append("text")
+    .attr("transform", function(d) { //set the label's origin to the center of the arc
         //we have to make sure to set these before calling arc.centroid
         d.outerRadius = outerRadius + 50; // Set Outer Coordinate
         d.innerRadius = outerRadius + 45; // Set Inner Coordinate
         return "translate(" + arc.centroid(d) + ")";
       })
-      // .attr("text-anchor", "right") //center the text on it's origin
+
+    // .attr("text-anchor", "right") //center the text on it's origin
       .style("fill", "Purple")
       .style("font", "bold 12px Arial")
       .text(function(d, i) { return tempData[i].key; }); //get the label from our original data array
