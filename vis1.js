@@ -1,5 +1,5 @@
-var WIDTH = 800;
-var HEIGHT = 600;
+var WIDTH = 960;
+var HEIGHT = 500;
 
 // Set width and height of svg.
 d3.select('svg')
