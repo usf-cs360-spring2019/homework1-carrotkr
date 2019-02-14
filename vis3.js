@@ -1,6 +1,6 @@
 // Width and height.
-var w = 700;
-var h = 400;
+var w = 800;
+var h = 600;
 
 // Set width and height of svg.
 d3.select('svg')
@@ -69,11 +69,11 @@ d3.csv('Police.csv').then(function(csv_data) {
     })
     .attr("text-anchor", "middle")
     .attr('dy', '-20')
-    .style("font", "bold 16px Arial")
+    .style("font", "bold 12px Arial")
     .text(function(d, i) {
         //   return d.value + " incidents\
         // (" + tempData[i].key + ")";
-      return d.value + "incidents";
+      return d.value + " incidents";
     });
 
   // Add a legendLabel to each arc slice.
@@ -87,6 +87,6 @@ d3.csv('Police.csv').then(function(csv_data) {
 
     // .attr("text-anchor", "right") // Center the text on it's origin.
       .style("fill", "Purple")
-      .style("font", "bold 14px Arial")
+      .style("font", "12px Arial")
       .text(function(d, i) { return tempData[i].key; }); // Get the label from original data array.
 }); 
