@@ -1,6 +1,6 @@
 // Width and height.
-var w = 800;
-var h = 500;
+var w = 700;
+var h = 400;
 
 // Set width and height of svg.
 d3.select('svg')
@@ -73,15 +73,15 @@ d3.csv('Police.csv').then(function(csv_data) {
     .text(function(d, i) {
         //   return d.value + " incidents\
         // (" + tempData[i].key + ")";
-      return d.value;
+      return d.value + "incidents";
     });
 
   // Add a legendLabel to each arc slice.
   arcs.append("text")
     .attr("transform", function(d) { // Set the label's origin to the center of the arc.
         // Set these before calling arc.centroid.
-        d.outerRadius = outerRadius + 50; // Set Outer Coordinate.
-        d.innerRadius = outerRadius + 45; // Set Inner Coordinate.
+        d.outerRadius = outerRadius + 40; // Set Outer Coordinate.
+        d.innerRadius = outerRadius + 35; // Set Inner Coordinate.
         return "translate(" + arc.centroid(d) + ")";
       })
 
