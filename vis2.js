@@ -45,7 +45,7 @@ d3.csv('Police.csv').then(function(csv_data) {
     // console.log(yMax);
 
     // Set the domain of yScale from yMin and yMax.
-    yScale.domain([yMin, yMax]);
+    yScale.domain([yMin-141, yMax]);
 
     d3.selectAll('rect')
         .attr('height', function(datum, index){
